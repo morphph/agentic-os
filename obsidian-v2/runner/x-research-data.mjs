@@ -134,7 +134,9 @@ export async function collectXResearch({env={},operation,query,handle,sort,since
    if(remaining.dailyRemaining<PAGE){stoppedBy='daily_cap_reached';break}
    if(remaining.runRemaining<PAGE){stoppedBy='run_cap_reached';break}
    let body;
-   try{body=await get(operation==='search'?{query:`${query.trim()} since_time:${Math.floor(since/1000)}`,queryType:sort||'Top',cursor}:{userName,includeReplies:'false',cursor})}
+   // The parentheses matter: in X search a space binds tighter than OR, so without
+   // them the time window would apply only to the last OR term.
+   try{body=await get(operation==='search'?{query:`(${query.trim()}) since_time:${Math.floor(since/1000)}`,queryType:sort||'Top',cursor}:{userName,includeReplies:'false',cursor})}
    catch(error){
     if(error instanceof Error)throw error;
     if(!posts.length)return unavailable(error.reason,error.message);

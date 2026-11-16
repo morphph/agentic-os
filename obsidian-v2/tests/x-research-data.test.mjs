@@ -28,7 +28,7 @@ test('search sends the query with the time window and returns posts with real en
  const f=fixture([{tweets:[tweet(1),tweet(2,{likeCount:10,retweetCount:0})],has_next_page:false,next_cursor:''}]);
  const r=await collect(t,{operation:'search',query:' claude code ',sinceHours:24},f);
  assert.equal(f.calls.length,1);assert.equal(f.calls[0].path,'/twitter/tweet/advanced_search');
- assert.equal(f.calls[0].params.get('query'),`claude code since_time:${Math.floor((now.getTime()-24*3600000)/1000)}`);assert.equal(f.calls[0].params.get('queryType'),'Top');
+ assert.equal(f.calls[0].params.get('query'),`(claude code) since_time:${Math.floor((now.getTime()-24*3600000)/1000)}`,'the window must cover every OR term');assert.equal(f.calls[0].params.get('queryType'),'Top');
  assert.equal(r.available,true);assert.equal(r.source,'twitterapi.io');assert.equal(r.posts.length,2);
  const p=r.posts[0];
  assert.equal(p.url,'https://x.com/example/status/1001');assert.equal(p.author,'example');assert.equal(p.authorFollowers,1200);assert.equal(p.createdAt,'2026-11-16T10:00:00.000Z');assert.equal(p.ageHours,2);
