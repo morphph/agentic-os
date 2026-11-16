@@ -37,8 +37,8 @@ export function deliverablePathFor(intent) {
       return `inbox/research/github-trending/${date}-trending.md`;
     case "ai-trend-scan":
       return `inbox/reports/trend-scan/${date}-trend-scan-${id8}.md`;
-    case "last-7-days":
-      return `inbox/research/last-7-days/${date}-last-7-days-${id8}.md`;
+    case "last-24-hours":
+      return `inbox/research/last-24-hours/${date}-last-24-hours-${id8}.md`;
     case "morning-intel":
       // converged 2026-08-14: interactive /morning-intel writes here natively;
       // the runner now matches (was inbox/reports/morning/) so the voice
@@ -95,8 +95,8 @@ export function originalPrompt(intent) {
       return 'The deterministic GitHub integration owns execution and its dated snapshot. Return its actual complete report.';
     case 'ai-trend-scan':
       return 'Scan current YouTube and X AI trends using the attached velocity, deduplication and clustering rubric. Return the ranked seed list; leave angle selection and outlines for their own workflows.';
-    case 'last-7-days':
-      return 'Produce the Last 7 Days AI News brief. Read every entry in the attached source list (official pages, the fixed X account list and the fixed X searches) for the rolling seven-day window, merge items about the same event, and follow the attached report headings. Do not add sources outside the list except to verify a date or locate an original link; include useful partial findings and identify each unavailable source.';
+    case 'last-24-hours':
+      return 'Produce the Last 24 Hours AI News brief. Read every entry in the attached source list (official pages, then the X calls in their listed priority order) for the rolling 24-hour window, merge items about the same event, and follow the attached report headings. Do not add sources outside the list except to verify a date or locate an original link; include useful partial findings and identify each unavailable source.';
     case 'morning-intel':
       return 'Produce the full AI intelligence brief from current news, Hacker News, YouTube, small-channel outliers, GitHub and read-only inbox triage. Follow the attached source/status and content-plan rubrics; include useful partial findings and identify each unavailable source.';
     case 'outlier-radar':
