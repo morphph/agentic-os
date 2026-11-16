@@ -85,10 +85,6 @@ export const SKILLS = {
     "label": "AI Trend Scan",
     "instruction": "Complete the AI Trend Scan workflow."
   },
-  "last-7-days": {
-    "label": "Last 7 Days AI News",
-    "instruction": "Complete the Last 7 Days AI News workflow."
-  },
   "angle-brainstorm": {
     "label": "Brainstorm Angles",
     "instruction": "Complete the Brainstorm Angles workflow.",

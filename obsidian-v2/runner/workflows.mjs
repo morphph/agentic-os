@@ -74,7 +74,6 @@ const referenceDependencies={
  'morning-intel':['outlier-radar','inbox-brief','youtube-data','x-data'],
  'outlier-radar':['youtube-data'],
  'ai-trend-scan':['youtube-data','x-data'],
- 'last-7-days':['last-7-days-sources','x-data'],
  'yt-pipeline':['youtube-data'],
  'deep-research-chase':['yt-pipeline','youtube-data','x-data'],
  'weekly-review':['yt-week-review']
