@@ -2,7 +2,7 @@
 
 Adapted from the vault's deep-research-chase v1.1.0. Require a specific topic; preserve the user's research goal and scope. References define research and formatting, while the execution contract controls tools and side effects.
 
-Research YouTube, web articles, X/Twitter and GitHub independently where supported. Use platform-specific queries: broad topic plus the current year, topic plus tutorial/guide/announcement, both x.com and twitter.com conversation, and GitHub repositories/issues/discussions. Search YouTube for approximately 15 relevant results from the last three months for quick metadata; extend the window when justified. Collect titles, creators, dates, views and source URLs. Do not label metadata-only findings as transcript analysis.
+Research YouTube, web articles, X/Twitter and GitHub independently where supported. Use platform-specific queries: broad topic plus the current year, topic plus tutorial/guide/announcement, X conversation through the `x_research_data` tool (see the X data rubric; web search of both x.com and twitter.com is the fallback only when it reports it is unavailable), and GitHub repositories/issues/discussions. Search YouTube for approximately 15 relevant results from the last three months for quick metadata; extend the window when justified. Collect titles, creators, dates, views and source URLs. Do not label metadata-only findings as transcript analysis.
 
 For the YouTube depth pass, use the attached YouTube pipeline rubric: select 5–8 diverse, relevant sources, then analyze actual available transcripts or authorized existing NotebookLM sources. New NotebookLM notebooks/source uploads require separately authorized account changes; if that path is unavailable, clearly identify the local transcript alternative and any missing depth. Do not invent a notebook link or claim a tool ran.
 
@@ -17,7 +17,7 @@ Frontmatter: date, topic, skill: deep-research-chase, tags: [research].
 - Key Takeaways: about five synthesized, actionable insights.
 - YouTube Landscape: Top Videos table (Video, Creator, Views, Date), key creators, actual analysis method/results, content gaps and existing notebook link if used.
 - Web / Articles: linked titles, short summaries and shared themes.
-- X / Twitter Pulse: sentiment, notable voices, common questions and linked paraphrased highlights.
+- X / Twitter Pulse: sentiment, notable voices, common questions and linked paraphrased highlights, with measured engagement where the X tool supplied it.
 - GitHub Activity: linked projects, observed stars/activity, relevant issues/PRs and **Community activity** (substantive discussions, contributor participation and user questions). Distinguish observed activity from a guess based on star counts.
 - Content Opportunities: concrete underserved angles and questions.
 - Source Status: unavailable sources, publication dates, evidence limitations and contradictions.

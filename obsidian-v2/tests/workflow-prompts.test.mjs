@@ -56,6 +56,19 @@ test('YouTube research workflows share the trusted metadata connection on both p
  }
 });
 
+test('X research workflows read posts through the trusted tool first and keep web search as the labelled fallback',t=>{
+ for(const provider of ['claude','codex'])for(const skill of ['morning','morning-report','morning-intel','ai-trend-scan','deep-research-chase']){
+  const {instructions}=setup(t,skill,provider);
+  assert.match(instructions,/BUNDLED RUBRIC: x-data/,skill);
+  assert.match(instructions,/agentic_vault x_research_data first/,skill);
+  assert.match(instructions,/operation: user_posts/,skill);
+  assert.match(instructions,/available: false/,skill);
+  assert.match(instructions,/X: web search fallback/,skill);
+  assert.doesNotMatch(instructions,/TWITTERAPI_IO_KEY/,skill);
+ }
+ for(const skill of ['outlier-radar','yt-pipeline'])assert.doesNotMatch(setup(t,skill).instructions,/BUNDLED RUBRIC: x-data/,skill);
+});
+
 test('the eight missing rubrics and their dependencies are available inline',t=>{
  const expected={
   'plan-today':[/\+50/,/\+40/,/\+30/,/\+25/,/\+20/,/\+15/,/empty slots/],

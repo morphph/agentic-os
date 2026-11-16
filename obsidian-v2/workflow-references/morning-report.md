@@ -6,7 +6,7 @@ Scan YouTube, web announcements, X/Twitter and GitHub for AI coding agents, incl
 
 - YouTube: about ten results each for the coding-agent focus and broader AI agents, posted within one day. Metadata scanning suffices; do not claim transcript analysis.
 - Web: provider/tool announcements, changelogs and broad AI coding assistant news. Prefer original announcement sources and record publication/update timestamps.
-- X/Twitter: topic conversation, unusual attention, specific questions and differing opinions, linked and paraphrased.
+- X/Twitter: topic conversation, unusual attention, specific questions and differing opinions, linked and paraphrased. Read posts with the `x_research_data` tool (see the X data rubric), last 24 hours; web search is the fallback only when it reports it is unavailable.
 - GitHub: releases, new/trending repositories and notable current issues/PRs.
 
 Independent searches can run concurrently if supported. Do not assume provider-specific tools or permission behavior. Reject items older than 24 hours from the news list; distinguish publication, update and event dates. Unknown timestamps belong in a clearly marked verification gap. If nothing is new or a source is inaccessible, state that instead of recycling old news.

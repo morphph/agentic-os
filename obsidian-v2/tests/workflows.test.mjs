@@ -63,5 +63,9 @@ test('vault MCP reads notes without a shell and rejects traversal and hidden fol
   assert.deepEqual(research.annotations,{readOnlyHint:true,destructiveHint:false,idempotentHint:true,openWorldHint:true});
   assert.deepEqual(research.inputSchema.properties.operation.enum,['search','videos','channels','channel_uploads']);
   assert.equal((await call(6,'youtube_research_data',{operation:'search',query:'topic',url:'https://example.com'})).isError,true,'arbitrary endpoints cannot reach the API');
+  const x=tools.find(tool=>tool.name==='x_research_data');assert.ok(x);
+  assert.deepEqual(x.annotations,{readOnlyHint:true,destructiveHint:false,idempotentHint:true,openWorldHint:true});
+  assert.deepEqual(x.inputSchema.properties.operation.enum,['search','user_posts']);
+  assert.equal((await call(7,'x_research_data',{operation:'search',query:'topic',url:'https://example.com'})).isError,true,'arbitrary endpoints cannot reach the X API');
  }finally{child.kill()}
 });

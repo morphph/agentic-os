@@ -10,11 +10,11 @@ Adapted from the original morning-intel source battery and stable report heading
 - Small-channel outliers: use the attached outlier-radar rubric or verified fresh existing reports. In this brief highlight findings from the last 24 hours. Its lifetime-baseline multiplier is distinct from the main radar's views/subscribers ratio.
 - GitHub: top new repositories over 7/30 days and observed growth where available, emphasizing relevant AI/dev projects. Read the deterministic snapshot when fresh; label snapshot age and do not claim historic star growth from one current count.
 - Gmail: read-only last-24-hour inbox triage using the attached inbox rubric. Operational deadlines first, opportunities/needs-reply next, FYI last; collapse noise to a count. Do not draft or send in this initial scan.
-- X: current primary announcements and useful builder reactions; search both current and legacy domains where needed. Verify dates against the post or corroborating dated coverage; search rank is not a freshness guarantee. Unavailable engagement figures stay unknown.
+- X: current primary announcements and useful builder reactions. Read them with the `x_research_data` tool (see the X data rubric); only when it reports it is unavailable, search both current and legacy domains. Verify dates against the post or corroborating dated coverage; search rank is not a freshness guarantee. Unavailable engagement figures stay unknown.
 
 ## Original source and inbox coverage
 
-Keep the targeted X gap-fill search battery, adapting only topic/date inputs:
+Keep the targeted X gap-fill battery, adapting only topic/date inputs. With `x_research_data` available, run the three X lines as `search` queries using `from:` operators (for example `from:AnthropicAI OR from:claudeai OR from:ClaudeDevs`) over the last 24 hours instead of the `site:x.com` form; the `site:x.com` form below is the web-search fallback:
 
 - `site:x.com AnthropicAI OR claudeai OR ClaudeDevs <topic keywords>`
 - `site:x.com bcherny OR _catwu OR alexalbert__ claude code`
