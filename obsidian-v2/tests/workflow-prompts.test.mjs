@@ -84,9 +84,13 @@ test('the eight missing rubrics and their dependencies are available inline',t=>
   const {instructions}=setup(t,skill);
   for(const pattern of patterns)assert.match(instructions,pattern,skill);
  }
+ // Morning Intel combines the intelligence parts; inbox triage and the content
+ // plan are their own workflows (Inbox Brief, Content Opportunities).
  const {instructions}=setup(t,'morning-intel');
  assert.match(instructions,/BUNDLED RUBRIC: outlier-radar/);
- assert.match(instructions,/BUNDLED RUBRIC: inbox-brief/);
+ assert.match(instructions,/BUNDLED RUBRIC: news-intel/);
+ assert.match(instructions,/BUNDLED RUBRIC: ai-trend-scan/);
+ assert.doesNotMatch(instructions,/BUNDLED RUBRIC: inbox-brief/);
 });
 
 test('research and draft references retain evidence and editorial requirements without remote mutation recipes',t=>{
@@ -151,7 +155,9 @@ test('restored shared rubrics retain sources, labels, handoff data and user sele
   const trend=setup(t,'ai-trend-scan',provider).instructions;
   for(const term of ['AI Explained','Matthew Berman','David Ondrej','Yannic Kilcher','Wes Roth','@AnthropicAI','@alexalbert__','@simonw','@karpathy','@swyx','12-hour cutoff grace'])assert.ok(trend.includes(term),term);
   const intel=setup(t,'morning-intel',provider).instructions;
-  for(const term of ['bcherny OR _catwu OR alexalbert__','sama OR gdb OR OpenAIDevs OR Codex_Changelog','newsletter-worth-reading','Never click tracking links','Reddit/Discord discussion proxy','Steal my X for Y'])assert.ok(intel.includes(term),term);
+  for(const term of ['bcherny OR _catwu OR alexalbert__','sama OR gdb OR OpenAIDevs OR Codex_Changelog','Reddit/Discord discussion proxy'])assert.ok(intel.includes(term),term);
+  const ideas=setup(t,'content-opportunities',provider).instructions;
+  for(const term of ['Steal my X for Y','franchise checks','small-channel outliers'])assert.ok(ideas.includes(term),term);
   const morning=setup(t,'morning',provider).instructions;
   const sponsor=JSON.parse(morning.match(/### SPONSOR_PITCHES\s+```json\s+([\s\S]*?)```/)[1])[0];
   const prospect=JSON.parse(morning.match(/### LEADS\s+```json\s+([\s\S]*?)```/)[1])[0];

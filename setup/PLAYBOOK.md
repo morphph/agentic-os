@@ -97,7 +97,7 @@ Explain in three sentences: *Jev is an optional model on OpenRouter that can red
 
 ## Phase 4 — Calendar and mail (optional)
 
-Plan Today, Inbox Brief and Morning Intel read the calendar and mail through the connectors of the coding tool, not through keys.
+Plan Today and Inbox Brief read the calendar and mail through the connectors of the coding tool, not through keys. Morning Intel no longer reads mail; inbox triage is the separate Inbox Brief.
 
 - Claude Code: the user runs `/mcp` (or opens claude.ai → Settings → Connectors) and connects Google Calendar, Gmail and Google Drive.
 - Codex: the user connects the same in Codex's connector settings.

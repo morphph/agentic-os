@@ -2,9 +2,10 @@ import { h } from "preact";
 import { useCallback, useEffect, useState } from "preact/hooks";
 import type { App } from "obsidian";
 import {
+	CONTENT_PLAN_DIRS,
 	MORNING_DIRS,
-	readLatestBrief,
-	type MorningBrief,
+	readLatestContentPlan,
+	type ContentPlan,
 } from "../lib/morningBrief";
 
 interface Props {
@@ -12,19 +13,19 @@ interface Props {
 	limit?: number;
 }
 
-// The intel brief's "So What" payoff — ranked video angles, surfaced where
-// the research happens.
+// The Content Opportunities report's ranked YouTube ideas, surfaced where the
+// research happens. Older intel briefs with an inline plan remain a fallback.
 export function ContentAnglesCard({ app, limit = 4 }: Props) {
-	const [brief, setBrief] = useState<MorningBrief | null>(null);
+	const [brief, setBrief] = useState<ContentPlan | null>(null);
 
 	const refresh = useCallback(async () => {
-		setBrief(await readLatestBrief(app));
+		setBrief(await readLatestContentPlan(app));
 	}, [app]);
 
 	useEffect(() => {
 		void refresh();
 		const handler = (file: { path: string }) => {
-			if (MORNING_DIRS.some((f) => file.path.startsWith(f))) void refresh();
+			if ([...CONTENT_PLAN_DIRS, ...MORNING_DIRS].some((f) => file.path.startsWith(f))) void refresh();
 		};
 		app.vault.on("modify", handler);
 		app.vault.on("create", handler);
@@ -39,7 +40,7 @@ export function ContentAnglesCard({ app, limit = 4 }: Props) {
 		void app.workspace.openLinkText(brief.path, "", false);
 	};
 
-	const items = (brief?.contentOpportunities ?? []).slice(0, limit);
+	const items = (brief?.items ?? []).slice(0, limit);
 
 	return (
 		<div className="aos-v2-cc-panel">
@@ -64,7 +65,7 @@ export function ContentAnglesCard({ app, limit = 4 }: Props) {
 			<div className="aos-v2-cc-panel-body">
 				{items.length === 0 ? (
 					<p className="aos-v2-cc-mono aos-v2-cc-dim">
-						&gt; no angles yet — run /morning-intel
+						&gt; no ideas yet — run Morning Intel, then Content Opportunities
 					</p>
 				) : (
 					<ul className="aos-v2-cc-feed-list">

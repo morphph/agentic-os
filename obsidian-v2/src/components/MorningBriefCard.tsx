@@ -4,8 +4,11 @@ import { Notice } from "obsidian";
 import type { App } from "obsidian";
 import { writeIntent } from "../lib/queue";
 import {
+	CONTENT_PLAN_DIRS,
 	MORNING_DIRS,
 	readLatestBrief,
+	readLatestContentPlan,
+	type ContentPlan,
 	type MorningBrief,
 } from "../lib/morningBrief";
 
@@ -15,17 +18,22 @@ interface Props {
 
 export function MorningBriefCard({ app }: Props) {
 	const [brief, setBrief] = useState<MorningBrief | null>(null);
+	const [plan, setPlan] = useState<ContentPlan | null>(null);
 	const [busy, setBusy] = useState(false);
 
 	useEffect(() => {
 		let cancelled = false;
 		const refresh = async () => {
 			const b = await readLatestBrief(app);
-			if (!cancelled) setBrief(b);
+			const p = await readLatestContentPlan(app, b);
+			if (!cancelled) {
+				setBrief(b);
+				setPlan(p);
+			}
 		};
 		void refresh();
 		const handler = (file: { path: string }) => {
-			if (MORNING_DIRS.some((f) => file.path.startsWith(f))) void refresh();
+			if ([...MORNING_DIRS, ...CONTENT_PLAN_DIRS].some((f) => file.path.startsWith(f))) void refresh();
 		};
 		app.vault.on("modify", handler);
 		app.vault.on("create", handler);
@@ -52,6 +60,10 @@ export function MorningBriefCard({ app }: Props) {
 		if (!brief) return;
 		void app.workspace.openLinkText(brief.path, "", true);
 	};
+
+	// Content ideas come from the Content Opportunities report (or a legacy
+	// brief's inline plan); the intel brief itself carries none.
+	const opportunities = plan?.items ?? [];
 
 	if (!brief) {
 		return (
@@ -114,7 +126,7 @@ export function MorningBriefCard({ app }: Props) {
 					</span>
 					<span className="aos-v2-cc-morning-chip aos-v2-cc-morning-chip--opp">
 						<span className="aos-v2-cc-morning-chip-count">
-							{brief.contentOpportunities.length}
+							{opportunities.length}
 						</span>
 						OPPS
 					</span>
@@ -210,13 +222,13 @@ export function MorningBriefCard({ app }: Props) {
 				)}
 				<div className="aos-v2-cc-morning-col aos-v2-cc-morning-col--opp">
 					<div className="aos-v2-cc-morning-col-label">★ CONTENT OPPORTUNITIES</div>
-					{brief.contentOpportunities.length === 0 ? (
+					{opportunities.length === 0 ? (
 						<p className="aos-v2-cc-morning-col-empty aos-v2-cc-dim">
-							no opportunities parsed
+							no ideas yet — run Content Opportunities
 						</p>
 					) : (
 						<ol className="aos-v2-cc-morning-opps">
-							{brief.contentOpportunities.slice(0, 3).map((o, i) => (
+							{opportunities.slice(0, 3).map((o, i) => (
 								<li key={i} className="aos-v2-cc-morning-opp">
 									<span className="aos-v2-cc-morning-opp-num">{i + 1}</span>
 									<span className="aos-v2-cc-morning-opp-text">{o}</span>

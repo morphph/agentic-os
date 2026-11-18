@@ -44,6 +44,21 @@ Services bind to `127.0.0.1`: **3217** HUD, **3218** preview, **3219** bridge, *
 
 The daily-note structure follows `system/schemas/daily-note.md` (v1) in the vault. Keep its section headings intact: the cockpit parses them. Customize the content within those sections. Dashboard button choices live separately in `system/v2/dashboard.json` and survive supported updates.
 
+## Content workflows
+
+The content workflows form one pipeline. Each layer reads the previous layer's saved report instead of scanning sources again.
+
+| Layer | Workflows | Report folder |
+| --- | --- | --- |
+| Intelligence | **Morning Intel** runs News Intel, AI Trend Scan and Outlier Radar and includes the GitHub Trending snapshot in one report. Each part also runs on its own. | `inbox/research/morning-intel/`, plus each part's own folder |
+| Topic selection | **Content Opportunities** ranks YouTube, LinkedIn and short-form ideas from the newest intelligence reports and the latest YouTube review. | `inbox/reports/content-opportunities/` |
+| Research (on demand) | Deep Research, YT Pipeline | `inbox/research/` |
+| Production | Brainstorm Angles → Build Outline | `inbox/reports/angles/`, `inbox/reports/outlines/` |
+| Distribution | Content Cascade | `inbox/reports/cascades/` |
+| Review | YouTube Review, Weekly Review, Pull Metrics | `inbox/reports/yt-reviews/`, `inbox/reports/weekly/` |
+
+Inbox Brief and Lead Research are a separate operations track. Each intelligence part keeps its own rubric in `obsidian-v2/workflow-references/`, and `morning-intel.md` only assembles them, so a fix to one part goes in that part's rubric. `news-intel.md` is the original morning-intel rubric with its inbox and content-plan sections removed. The original is kept unchanged in `workflow-references/upstream/` (it is not loaded), and `tests/content-pipeline.test.mjs` checks that the derived lines still match it. Morning Report and Morning Brief still run, but they are outside this pipeline.
+
 ## Data and costs
 
 Speech recognition and speech generation run on your computer; local speech has no speech API charge. Claude Code/Codex requests use your provider account and may include vault content the workflow reads. Searches, connectors and personal skills can contact other services and incur their own charges.

@@ -42,6 +42,10 @@ export function deliverablePathFor(intent) {
       // the runner now matches (was inbox/reports/morning/) so the voice
       // "open morning intel" target and the briefing reader have ONE home
       return `inbox/research/morning-intel/${date}-intel-${id8}.md`;
+    case "news-intel":
+      return `inbox/research/news-intel/${date}-news-${id8}.md`;
+    case "content-opportunities":
+      return `inbox/reports/content-opportunities/${date}-opportunities-${id8}.md`;
     case "outlier-radar":
       return `inbox/research/outlier-radar/${date}-outliers.md`;
     case "lead-research":
@@ -94,7 +98,11 @@ export function originalPrompt(intent) {
     case 'ai-trend-scan':
       return 'Scan current YouTube and X AI trends using the attached velocity, deduplication and clustering rubric. Return the ranked seed list; leave angle selection and outlines for their own workflows.';
     case 'morning-intel':
-      return 'Produce the full AI intelligence brief from current news, Hacker News, YouTube, small-channel outliers, GitHub and read-only inbox triage. Follow the attached source/status and content-plan rubrics; include useful partial findings and identify each unavailable source.';
+      return 'Produce the combined Morning Intel report. Run the News Intel, AI Trend Scan and Outlier Radar parts, each with its own attached rubric, include the supplied GitHub Trending snapshot, and assemble them with the attached Morning Intel rubric. Include useful partial findings and identify each unavailable source. This is intelligence only: no content plan, video ideas or inbox triage.';
+    case 'news-intel':
+      return 'Produce the News Intel brief from current AI news, Hacker News, YouTube and X using the attached source/status rubric. Include useful partial findings and identify each unavailable source. Leave content ideas to the Content Opportunities workflow.';
+    case 'content-opportunities':
+      return 'Rank content opportunities from the supplied intelligence reports using the attached evidence and content-plan rubric. Do not run a new source scan; cite the report findings each idea rests on. If no intelligence report is supplied, return BLOCKED: and say which workflow needs to run first.';
     case 'outlier-radar':
       return 'Find recent small-channel AI YouTube outliers using the attached eligibility, lifetime-baseline and early-velocity rubric. Return the complete dated report with evidence, source coverage and comparisons to existing reports when available.';
     case 'lead-research':
