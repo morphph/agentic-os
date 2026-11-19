@@ -6,7 +6,9 @@ const definitions={
  'ai-codex':{label:'Codex and OpenAI news',parent:/^ai news\b/i,child:/^(?:openai|codex)\b/i},
  'ai-other':{label:'Other AI news',parent:/^ai news\b/i,child:/^(?:everyone else|other(?:s| ai)?(?: news)?)\b/i},
  youtube:{label:'YouTube radar',parent:/^youtube radar\b/i,ownBody:true},
- outliers:{label:'Small-channel outliers',parent:/^youtube radar\b/i,child:/^(?:small[- ]channel )?outliers\b/i},
+ // Older briefs nest outliers under YouTube Radar; the combined Morning Intel
+ // gives Outlier Radar its own section. Only a parent that has the child counts.
+ outliers:{label:'Small-channel outliers',parent:/^(?:youtube radar|outlier radar)\b/i,child:/^(?:small[- ]channel )?outliers\b/i,childDecides:true},
  github:{label:'GitHub radar',parent:/^github (?:radar|trending)\b/i},
  'content-youtube':{label:'YouTube content plan',parent:/^(?:so what\b.*content plan|content plan\b)/i,child:/^youtube\b/i},
  'content-linkedin':{label:'LinkedIn content plan',parent:/^(?:so what\b.*content plan|content plan\b)/i,child:/^linkedin\b/i},
@@ -99,7 +101,8 @@ export function parseBriefSections(raw){
  const {lines,nodes}=nodesFor(raw),result={};
  for(const [id,def] of Object.entries(definitions)){
   const empty=status=>({label:def.label,status,items:[],text:'',ordered:false,truncated:false});
-  const parents=nodes.filter(n=>n.level===2&&def.parent.test(n.title));
+  let parents=nodes.filter(n=>n.level===2&&def.parent.test(n.title));
+  if(def.childDecides&&parents.length>1)parents=parents.filter(parent=>nodes.some(n=>n.parent===parent&&def.child.test(n.title)));
   if(!parents.length){result[id]=empty('missing');continue;}
   if(parents.length!==1){result[id]=empty('malformed');continue;}
   const parent=parents[0],matches=def.child?nodes.filter(n=>n.parent===parent&&def.child.test(n.title)):[parent];

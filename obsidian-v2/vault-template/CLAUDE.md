@@ -100,7 +100,7 @@ Bases sidebar filters `status != done AND status != archived`. Non-canonical val
 |---|---|
 | Plan Today / Refresh Schedule | today's daily note (`## Schedule` and empty Top 3 rows only; everything else is preserved) |
 | Plan Tomorrow | tomorrow's daily note (only when it does not exist yet) |
-| Morning Intel, Morning Report, Inbox Brief, Weekly Review, YouTube Review, Trend Scan, Lead Research, Angles, Outline, Cascade, Deep Research | one new report under `inbox/reports/<kind>/` or `inbox/research/` |
+| Morning Intel, News Intel, Content Opportunities, Morning Report, Inbox Brief, Weekly Review, YouTube Review, Trend Scan, Lead Research, Angles, Outline, Cascade, Deep Research | one new report under `inbox/reports/<kind>/` or `inbox/research/` |
 | GitHub Trending, Pull Metrics | `inbox/research/github-trending/`, `system/metrics/` (scripts, no model) |
 | Voice answers that are long | `inbox/voice/` |
 | Agentic OS V2 plugin + Jarvis HUD | checkbox toggles and priority edits in today's daily note, through the bridge |

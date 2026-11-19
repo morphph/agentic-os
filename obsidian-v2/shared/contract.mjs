@@ -24,6 +24,14 @@ export const SKILLS = {
     "label": "Intel Brief",
     "instruction": "Complete the Intel Brief workflow."
   },
+  "news-intel": {
+    "label": "News Intel",
+    "instruction": "Complete the News Intel workflow."
+  },
+  "content-opportunities": {
+    "label": "Content Opportunities",
+    "instruction": "Complete the Content Opportunities workflow."
+  },
   "inbox-brief": {
     "label": "Inbox Brief",
     "instruction": "Complete the Inbox Brief workflow."

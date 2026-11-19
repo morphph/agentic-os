@@ -3,8 +3,8 @@
 Source material, skill deliverables, untriaged capture.
 
 - `notes/` — quick capture
-- `research/` — deep-research briefs (`morning-intel/`, `github-trending/`)
-- `reports/` — skill outputs grouped by source (`morning/`, `weekly/`, `inbox-briefs/`, ...)
+- `research/` — intelligence and research briefs (`morning-intel/`, `news-intel/`, `outlier-radar/`, `github-trending/`)
+- `reports/` — skill outputs grouped by source (`trend-scan/`, `content-opportunities/`, `angles/`, `outlines/`, `cascades/`, `weekly/`, `inbox-briefs/`, ...)
 - `personal/` — journal, drafts
 - `demo-assets/` — reusable images (embed via `![[image.png]]`)
 - `archive/` — 7d+ stale files land here via /vault-cleanup

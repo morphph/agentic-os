@@ -1,65 +1,73 @@
-# Morning Intel — full daily intelligence brief
+# Morning Intel — combined intelligence report
 
-Adapted from the original morning-intel source battery and stable report headings. Use America/Chicago for report dating and a rolling 24-hour news window. Read current sources through available tools or verified fresh cached results; do not assume private fetch scripts or scheduled jobs exist. Parallelize independent source reads when supported.
+This workflow runs the four intelligence workflows in one pass and returns one combined note. Each part follows its own attached rubric for sources, time windows, eligibility, scoring, deduplication and evidence; this rubric only defines how the parts are assembled. Do not loosen, re-derive or merge their rules. Use America/Chicago for report dating. Run independent source reads concurrently when supported.
 
-## Source battery
+| Part | Rubric | Owns |
+| --- | --- | --- |
+| 1. News Intel | news-intel | AI news, Hacker News, main YouTube radar, X announcements |
+| 2. AI Trend Scan | ai-trend-scan | velocity-ranked YouTube and X seeds |
+| 3. Outlier Radar | outlier-radar | small-channel videos against their own channel baseline |
+| 4. GitHub Trending | deterministic snapshot | repository rankings and growth |
 
-- AI news: current smol.ai coverage, primary provider announcements/changelogs and linked original reporting. Cover Anthropic/Claude, OpenAI/Codex and other relevant providers; the selected execution provider does not limit the news scope.
-- Hacker News: relevant front-page and recent AI stories, with observed points/comments.
-- YouTube: recent AI-builder videos with title, channel, subscribers, views, date and URL. Main-radar views/subscribers ratio of at least 0.3 is an audience signal; label the formula and unknown inputs.
-- Small-channel outliers: use the attached outlier-radar rubric or verified fresh existing reports. In this brief highlight findings from the last 24 hours. Its lifetime-baseline multiplier is distinct from the main radar's views/subscribers ratio.
+This is an intelligence report: facts, measurements and the evidence notes each part's rubric asks for (such as a seed's "Why this matters" or what an outlier's topic suggests). It contains no content plan, video ideas, angles, hooks, lead-magnet offers or inbox triage. Content ideas come from the separate Content Opportunities workflow, which reads this report; inbox triage is the separate Inbox Brief workflow.
+
+## Shared evidence
+
+Read each source once per run where the parts overlap. An X post or YouTube video already read for one part can supply another part's measurements; each part still applies its own selection, window and scoring to that evidence. The X data rubric's metered budget covers the whole run. Keep each metric under its own name: the main radar's views/subscribers ratio, the trend scan's views-per-hour or engagement-per-hour velocity, and the outlier radar's lifetime-baseline multiplier are different measures.
+
+The same item may appear in more than one part when each part's own rules select it. Keep it in each, and add a short "also in Part N" note instead of dropping it.
+
+A failed part does not block the others. Keep useful partial findings, mark the unavailable part, and explain it in Source Status. Return BLOCKED: only when no part produced usable evidence.
+
+## GitHub Trending part
+
+The deterministic GitHub integration owns this data. When the supplied context includes a GitHub Trending snapshot from the last 24 hours, reproduce its ranked sections under the part heading, one heading level lower, keeping each repository line, metric and AI/DEV label exactly as written. Do not re-rank it, drop entries or add star growth the snapshot does not show. Leave out the snapshot's own title, its generated-at footer and its Content Radar section; state the snapshot's generation time in Source Status.
+
+When no snapshot from the last 24 hours is supplied, label the latest snapshot's age or its absence, recommend running GitHub Trending before the next Morning Intel, and fall back to the original rule:
+
 - GitHub: top new repositories over 7/30 days and observed growth where available, emphasizing relevant AI/dev projects. Read the deterministic snapshot when fresh; label snapshot age and do not claim historic star growth from one current count.
-- Gmail: read-only last-24-hour inbox triage using the attached inbox rubric. Operational deadlines first, opportunities/needs-reply next, FYI last; collapse noise to a count. Do not draft or send in this initial scan.
-- X: current primary announcements and useful builder reactions. Read them with the `x_research_data` tool (see the X data rubric); only when it reports it is unavailable, search both current and legacy domains. Verify dates against the post or corroborating dated coverage; search rank is not a freshness guarantee. Unavailable engagement figures stay unknown.
 
-## Original source and inbox coverage
+## Combined result headings
 
-Keep the targeted X gap-fill battery, adapting only topic/date inputs. With `x_research_data` available, run the three X lines as `search` queries using `from:` operators (for example `from:AnthropicAI OR from:claudeai OR from:ClaudeDevs`) over the last 24 hours instead of the `site:x.com` form; the `site:x.com` form below is the web-search fallback:
-
-- `site:x.com AnthropicAI OR claudeai OR ClaudeDevs <topic keywords>`
-- `site:x.com bcherny OR _catwu OR alexalbert__ claude code`
-- `site:x.com sama OR gdb OR OpenAIDevs OR Codex_Changelog`
-- `Anthropic OR "Claude Code" announcement news <today's date>`
-- `OpenAI OR Codex announcement news <today's date>`
-
-Use equivalent legacy-domain queries where useful. Search snippets are evidence to verify, not measured engagement. The baseline uses smol.ai as the Reddit/Discord discussion proxy; there is no bundled direct Reddit integration. Label proxy coverage and its possible one-to-two-day lag. Do not repeatedly probe blocked mirrors or claim direct Reddit coverage unless an available authorized connector was actually used.
-
-For Gmail, deduplicate by thread and use the latest message date. Classify from snippets when sufficient (the original expected roughly 80% coverage); fetch full threads for operational/transactional mail or relevant personalized inbound, and when a reliable decision needs context. Preserve **needs-reply / opportunity / newsletter-worth-reading / FYI / ignore** categories with one why-care sentence. Quota, billing and site failures come first. Collapse ignore mail to a count. Never click tracking links or mutate labels, drafts or messages in this scan.
-
-## Stable result headings
-
-Return the complete report with these headings:
+Return the complete report with exactly these level-2 headings, in this order. The dashboard and voice briefing read them by name.
 
 # Morning Intel - YYYY-MM-DD (Weekday)
 
 ## TL;DR
-Three to six bullets with the most consequential story first, including urgent operational inbox items when present.
+Three to six bullets across all four parts, the most consequential first. End each bullet with its part in brackets, for example [News Intel] or [Outlier Radar].
 
 ## Top Story
-One or two paragraphs with direct sources and a verified useful statistic if available.
+The News Intel Top Story.
 
 ## AI News (last 24h)
-Group Anthropic/Claude, OpenAI/Codex and others. Link factual claims and include relevant changelog changes.
+News Intel's AI News section.
 
 ## Hacker News Pulse
-Relevant stories, measured points/comments and why they matter.
+News Intel's Hacker News section, as a table with Story, Points and Comments columns.
 
 ## YouTube Radar
-Table of linked title, channel/subscribers, views and explicitly named ratio. Discuss recurring hooks or underserved audience signals without overclaiming.
+News Intel's main YouTube radar table and notes. Do not nest small-channel outliers here; they are Part 3.
 
-### Small-Channel Outliers (last 24h)
-Table of title, channel/subscribers, views/age, lifetime multiplier and discovery method. Label early velocity separately. A verified zero scan is meaningful; stale/unavailable data is not zero.
+## AI Trend Scan
+The AI Trend Scan result without its own title: the numbered seeds grouped under its theme headings (one level lower), then its coverage and source notes.
 
-## GitHub Radar
-Linked 7-day/30-day new or growing repositories, with a line explaining each AI-builder implication.
+## Outlier Radar
+The Outlier Radar result without its own title, in these subsections:
 
-## Inbox (last 24h)
-Operational items, opportunities/needs-reply, FYI, then noise count.
+### Small-Channel Outliers
+Main outliers as a table. The first five columns are fixed, in this order: Title (linked) | Channel (subscribers) | Views / age | Lifetime multiplier | Discovery. Put the rubric's other fields (duration, upload time, baseline size) in further columns after those five. Mark findings uploaded in the last 24 hours. A verified zero scan is meaningful; stale/unavailable data is not zero.
 
-## So What - Content Plan
-Rank three to five YouTube ideas with working title, two-sentence hook, supporting findings and urgency/expiry versus evergreen value. Add two or three LinkedIn ideas and one or two shorts/carousel ideas. Ground any lead-magnet offer in actual existing resources, never invent one. Relate ideas to documented creator themes such as Agentic OS, skills and practical agent building.
+### Early Velocity Candidates
+Young videos flagged by relative views per hour, labelled as a secondary signal.
 
-For those LinkedIn ideas, preserve the creator's **“Steal my X for Y”** lead-magnet format: name a real existing resource X and the concrete outcome Y. If no resource supports an idea, mark the resource gap and suggest the angle without falsely offering a download. Preserve the original franchise checks (Agentic OS, Codex skills, taste/anti-slop and practical skills content); flag topics corroborated by both the main YouTube radar and small-channel outliers. Lead with English-language results while noting evidenced international outliers as a separate audience signal.
+### Previously Seen
+Findings already in reports from the last 30 days.
+
+### Notes and Coverage
+What the topics suggest, query coverage, quota or baseline limits, and confidence.
+
+## GitHub Trending
+The snapshot's ranked sections as described above, or the labelled fallback.
 
 ## Source Status
-Source / Status / Freshness or failure table, including Gmail and X. Preserve useful partial findings and clearly mark unavailable sections. End with observed generation time in CT. The bridge saves the complete answer; do not replace it with a short summary or a file link.
+One table: Part / Source / Status / Freshness or failure. Cover every source of every part, the X evidence label required by the X data rubric, YouTube quota limits and the GitHub snapshot's generation time. End with observed generation time in CT. The bridge saves the complete answer; do not replace it with a short summary or a file link.

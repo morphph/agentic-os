@@ -17,6 +17,7 @@ export const REPORT_KINDS=[
  {name:'weekly-review',re:/\bweekly\s+(?:review|report|retro(?:spective)?)\b|\bweek(?:ly)?\s+in\s+review\b/,dirs:['inbox/reports/weekly'],label:'weekly review'},
  {name:'github-trending',re:/\b(?:git\s?hub\s+|get\s?hub\s+)?trending(?:\s+(?:report|repos|repositories|list))?\b/,dirs:['inbox/research/github-trending'],label:'GitHub trending'},
  {name:'outlier-radar',re:/\b(?:outlier\s+)?radar(?:\s+(?:report|sweep|scan))?\b|\boutliers?(?:\s+(?:report|list|scan))\b/,dirs:['inbox/research/outlier-radar'],label:'outlier radar'},
+ {name:'content-opportunities',re:/\bcontent\s+(?:opportunit(?:y|ies)|ideas)(?:\s+(?:report|list))?\b/,dirs:['inbox/reports/content-opportunities'],label:'content opportunities'},
  {name:'morning-intel',re:/\bmorning\s+(?:intel|report|brief(?:ing)?|sweep|news)\b|\bintel(?:\s+(?:brief(?:ing)?|report|sweep))?\b|\b(?:ai\s+)?(?:news\s+)?brief(?:ing)?\b/,dirs:['inbox/research/morning-intel','inbox/reports/morning'],filter:/-intel/,label:'morning intel'},
 ];
 const DAILY_RE=/\b(?:daily(?:\s+note)?|day\s+note|journal|my\s+day(?:\s+note)?|today's\s+note|the\s+note\s+for\s+today)\b/;

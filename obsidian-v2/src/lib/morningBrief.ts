@@ -52,6 +52,50 @@ export async function findLatestBrief(app: App): Promise<string | null> {
 	return intel ?? newest;
 }
 
+/** Content ideas live in their own workflow's reports. Older intel briefs
+ *  carried a "So What" plan inline; that stays a fallback for them. */
+export const CONTENT_PLAN_DIRS = ["inbox/reports/content-opportunities"];
+
+export interface ContentPlan {
+	path: string;
+	date: string;
+	items: string[];
+}
+
+async function latestDated(app: App, dirs: string[]): Promise<string | null> {
+	const dateOf = (p: string) => p.match(/(\d{4}-\d{2}-\d{2})/)?.[1] ?? "";
+	let best: { path: string; date: string; mtime: number } | null = null;
+	for (const dir of dirs) {
+		if (!(await app.vault.adapter.exists(dir))) continue;
+		const listing = await app.vault.adapter.list(dir);
+		for (const f of listing.files) {
+			if (!f.endsWith(".md") || f.endsWith("_index.md") || !dateOf(f)) continue;
+			const mtime = (await app.vault.adapter.stat(f))?.mtime ?? 0;
+			const date = dateOf(f);
+			if (!best || date > best.date || (date === best.date && mtime > best.mtime)) best = { path: f, date, mtime };
+		}
+	}
+	return best?.path ?? null;
+}
+
+/** The newest content plan: a Content Opportunities report, or the brief's
+ *  own inline plan when that brief is newer (legacy format). */
+export async function readLatestContentPlan(
+	app: App,
+	brief?: MorningBrief | null,
+): Promise<ContentPlan | null> {
+	const path = await latestDated(app, CONTENT_PLAN_DIRS);
+	const fromBrief = brief === undefined ? await readLatestBrief(app) : brief;
+	if (path) {
+		const parsed = parseBrief(path, await app.vault.adapter.read(path));
+		if (!fromBrief?.contentOpportunities.length || parsed.date >= fromBrief.date)
+			return { path, date: parsed.date, items: parsed.contentOpportunities };
+	}
+	return fromBrief?.contentOpportunities.length
+		? { path: fromBrief.path, date: fromBrief.date, items: fromBrief.contentOpportunities }
+		: null;
+}
+
 export async function readLatestBrief(app: App): Promise<MorningBrief | null> {
 	const path = await findLatestBrief(app);
 	if (!path) return null;
