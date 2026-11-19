@@ -13,7 +13,11 @@ This is an intelligence report: facts, measurements and the evidence notes each 
 
 ## Shared evidence
 
-Read each source once per run where the parts overlap. An X post or YouTube video already read for one part can supply another part's measurements; each part still applies its own selection, window and scoring to that evidence. The X data rubric's metered budget covers the whole run. Keep each metric under its own name: the main radar's views/subscribers ratio, the trend scan's views-per-hour or engagement-per-hour velocity, and the outlier radar's lifetime-baseline multiplier are different measures.
+Each part still runs every query, handle and channel lookup its own rubric asks for, with its own window, selection and scoring. Overlap only saves repeated calls: do not repeat an identical query within this run, and when a post or video is already read, reuse its measurements instead of reading it again. Never skip a part's own query because another part covered a similar topic.
+
+The X data rubric's per-run budget is shared by News Intel and AI Trend Scan in this run. Plan both parts' X reads before calling the tool, request only the `maxResults` each part's rubric uses, and keep each part within half of the run budget so neither crowds out the other. If a part still runs short, say so in Source Status rather than dropping that part's queries silently.
+
+Keep each metric under its own name: the main radar's views/subscribers ratio, the trend scan's views-per-hour or engagement-per-hour velocity, and the outlier radar's lifetime-baseline multiplier are different measures.
 
 The same item may appear in more than one part when each part's own rules select it. Keep it in each, and add a short "also in Part N" note instead of dropping it.
 
@@ -21,7 +25,7 @@ A failed part does not block the others. Keep useful partial findings, mark the 
 
 ## GitHub Trending part
 
-The deterministic GitHub integration owns this data. When the supplied context includes a GitHub Trending snapshot from the last 24 hours, reproduce its ranked sections under the part heading, one heading level lower, keeping each repository line, metric and AI/DEV label exactly as written. Do not re-rank it, drop entries or add star growth the snapshot does not show. Leave out the snapshot's own title, its generated-at footer and its Content Radar section; state the snapshot's generation time in Source Status.
+The deterministic GitHub integration owns this data. When the supplied context includes a GitHub Trending snapshot from the last 24 hours, reproduce its ranked sections under the part heading, one heading level lower, keeping each repository line, metric and AI/DEV label exactly as written. Do not re-rank it, drop entries or add star growth the snapshot does not show. After each reproduced repository entry, add one line explaining its AI-builder implication, as the original GitHub Radar asked ("with a line explaining each AI-builder implication"). Leave out the snapshot's own title, its generated-at footer and its Content Radar section; state the snapshot's generation time in Source Status.
 
 When no snapshot from the last 24 hours is supplied, label the latest snapshot's age or its absence, recommend running GitHub Trending before the next Morning Intel, and fall back to the original rule:
 
@@ -55,7 +59,7 @@ The AI Trend Scan result without its own title: the numbered seeds grouped under
 The Outlier Radar result without its own title, in these subsections:
 
 ### Small-Channel Outliers
-Main outliers as a table. The first five columns are fixed, in this order: Title (linked) | Channel (subscribers) | Views / age | Lifetime multiplier | Discovery. Put the rubric's other fields (duration, upload time, baseline size) in further columns after those five. Mark findings uploaded in the last 24 hours. A verified zero scan is meaningful; stale/unavailable data is not zero.
+Main outliers as a table. The first five columns are fixed, in this order: Title (linked) | Channel (subscribers) | Views / age | Lifetime multiplier | Discovery. Put the rubric's other fields (duration, upload time, baseline size, optional early velocity) in further columns after those five. List findings uploaded in the last 24 hours first and mark them; the rest of the seven-day window follows. A verified zero scan is meaningful; stale/unavailable data is not zero.
 
 ### Early Velocity Candidates
 Young videos flagged by relative views per hour, labelled as a secondary signal.
