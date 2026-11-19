@@ -132,8 +132,10 @@ function reportBlock(label,report,budget){
 }
 export function pipelineInputs(root,skill,now=new Date()){
  if(skill==='morning-intel'){
+  // The rubric uses a snapshot from the last 24 hours; an older one is only named.
   const snapshot=latestReport(root,'inbox/research/github-trending',{since:localDay(-1,now)});
-  return snapshot?reportBlock('GitHub Trending snapshot',snapshot,MAX_INPUT_FILE):'GitHub Trending snapshot: none saved today or yesterday. Use the labelled fallback in the Morning Intel rubric.';
+  if(snapshot&&now.getTime()-snapshot.mtime<=24*3600000)return reportBlock('GitHub Trending snapshot',snapshot,MAX_INPUT_FILE);
+  return snapshot?`GitHub Trending snapshot: the latest, ${snapshot.relative}, was saved ${new Date(snapshot.mtime).toISOString()}, more than 24 hours ago. Use the labelled fallback in the Morning Intel rubric and name the snapshot's age.`:'GitHub Trending snapshot: none saved in the last 24 hours. Use the labelled fallback in the Morning Intel rubric.';
  }
  if(skill!=='content-opportunities')return '';
  const since=localDay(-1,now),reports=[];

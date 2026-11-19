@@ -53,6 +53,16 @@ test('the content plan moved verbatim from upstream morning-intel into Content O
  assert.ok(read('morning-intel.md').includes(github));
 });
 
+test("Morning Intel keeps each part's own queries, X share and the original GitHub implication line",()=>{
+ const text=read('morning-intel.md');
+ assert.match(text,/still runs every query, handle and channel lookup its own rubric asks for/);
+ assert.match(text,/within half of the run budget/);
+ assert.match(text,/with a line explaining each AI-builder implication/);
+ assert.ok(upstream.includes('with a line explaining each AI-builder implication'));
+ assert.match(text,/optional early velocity/);assert.match(text,/last 24 hours first/);
+ assert.doesNotMatch(text,/Read each source once/);
+ assert.match(read('content-opportunities.md'),/the standalone report is the evidence for its part/);
+});
 test('Morning Intel assembles the separately maintained intelligence rubrics',()=>{
  const prompt=workflowPrompt(os.tmpdir(),job('morning-intel'),'');
  for(const name of ['morning-intel','news-intel','ai-trend-scan','outlier-radar','youtube-data','x-data'])assert.ok(prompt.includes(`BUNDLED RUBRIC: ${name} ---`),name);
@@ -93,6 +103,9 @@ test('Morning Intel receives the deterministic GitHub snapshot when one is recen
  assert.match(pipelineInputs(root,'morning-intel'),/GitHub Trending snapshot: none saved/);
  write(root,`inbox/research/github-trending/${day(-4)}-trending.md`,'OLD SNAPSHOT');
  assert.match(pipelineInputs(root,'morning-intel'),/none saved/);
+ assert.doesNotMatch(pipelineInputs(root,'morning-intel'),/OLD SNAPSHOT/);
+ write(root,`inbox/research/github-trending/${day()}-trending.md`,'STALE TODAY',Date.now()/1000-30*3600);
+ assert.match(pipelineInputs(root,'morning-intel'),/more than 24 hours ago/);assert.doesNotMatch(pipelineInputs(root,'morning-intel'),/STALE TODAY/);
  write(root,`inbox/research/github-trending/${day()}-trending.md`,'## Top 10 Trending This Week\n### 1. [a/b](https://github.com/a/b)');
  assert.match(pipelineInputs(root,'morning-intel'),/GitHub Trending snapshot: inbox\/research\/github-trending\/[\d-]+-trending\.md[\s\S]*a\/b/);
 });
